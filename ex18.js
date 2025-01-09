@@ -24,14 +24,14 @@ async function latLong(ville) {
 
 async function meteoVille(ville) {
     try {
-        const coord = await latLong(ville)
-        console.log(coord, coord[0])
-        url =`https://api.open-meteo.com/v1/forecast?&latitude=${coord[0]}&longitude=${coord[1]}`
-        console.log(url)
-        const response = await fetch(`https://api.open-meteo.com/v1/forecast?&latitude=${coord[0]}&longitude=${coord[1]}`);
+        const coord = await latLong(ville);
+        console.log(coord, coord[0]);
+        url =`https://api.open-meteo.com/v1/forecast?&latitude=${coord[0]}&longitude=${coord[1]}&current_weather=true`
+        console.log(url);
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?&latitude=${coord[0]}&longitude=${coord[1]}&current_weather=true`);
         const meteo = await response.json();
 
-        console.log(`Setup: ${meteo[0]}`);
+        console.log(`Temperature: ${meteo.current_weather.temperature}${meteo.current_weather_units.temperature}`);
     } catch (error) {
         console.error('Erreur:', error);
     }
